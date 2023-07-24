@@ -6,19 +6,21 @@ const Modal = ({ largeImageURL, tags, onClose }) => {
   const modalRoot = document.querySelector('#modal-root');
 
   useEffect(() => {
+
+    const handleKeyDown = e => {
+      if (e.code === 'Escape') {
+        onClose();
+      }
+    };
+
     window.addEventListener('keydown', handleKeyDown);
     // console.log ('mount');
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
       // console.log ('UNMOUNT');
     };
-  }, []);
+  }, [onClose]);
 
-  const handleKeyDown = e => {
-    if (e.code === 'Escape') {
-      onClose();
-    }
-  };
 
   const handleBackdropClick = evt => {
     if (evt.target === evt.currentTarget) {
